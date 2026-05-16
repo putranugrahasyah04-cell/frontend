@@ -1,0 +1,395 @@
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.hero {
+  position: relative;
+
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px 24px;
+    gap: 18px;
+  }
+}
+
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+
+  & > div {
+    flex: 1 1 0;
+    padding: 32px;
+    @media (max-width: 1024px) {
+      padding: 24px 20px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+
+  @media (max-width: 1024px) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 0;
+
+  .logo {
+    height: 18px;
+  }
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    .button-icon {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    a {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#spacer {
+  height: 88px;
+  border-top: 1px solid var(--border);
+  @media (max-width: 1024px) {
+    height: 48px;
+  }
+}
+
+.ticks {
+  position: relative;
+  width: 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    border: 5px solid transparent;
+  }
+
+  &::before {
+    left: 0;
+    border-left-color: var(--border);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--border);
+  }
+}
+
+/* ============================================================
+   CSS yang dipindahkan dari inline <style> di komponen React
+   React 19 otomatis hoist <style> ke <head> lalu crash saat
+   removeChild - solusinya taruh di sini sebagai global CSS
+   ============================================================ */
+
+/* --- Navbar.jsx --- */
+@keyframes dropIn {
+  from { opacity:0; transform:translateY(-8px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes fadeInBg { from{opacity:0} to{opacity:1} }
+@keyframes slideUpModal {
+  from { opacity:0; transform:translateY(14px) scale(0.98); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.dropdown-anim { animation: dropIn 0.2s cubic-bezier(0.16,1,0.3,1) both; }
+.modal-bg      { animation: fadeInBg 0.18s ease both; }
+.modal-card    { animation: slideUpModal 0.22s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* --- Home.jsx (scrollbar + fadeIn) --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.overflow-y-auto::-webkit-scrollbar { width: 4px; }
+.overflow-y-auto::-webkit-scrollbar-track { background: transparent; }
+.overflow-y-auto::-webkit-scrollbar-thumb { background: #bbf7d0; border-radius: 99px; }
+.overflow-y-auto::-webkit-scrollbar-thumb:hover { background: #6ee7b7; }
+
+/* --- Home.jsx (hero animations) --- */
+@keyframes heroImageFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  30%       { transform: translateY(-16px) rotate(0.4deg); }
+  65%       { transform: translateY(-7px) rotate(-0.3deg); }
+}
+@keyframes heroPulseGlow {
+  0%, 100% { transform: scale(1);   opacity: 0.7; }
+  50%       { transform: scale(1.12); opacity: 1; }
+}
+@keyframes heroRotateCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes heroRotateCCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+@keyframes heroParticleFloat {
+  0%, 100% { transform: translateY(0px) scale(1);   opacity: 0.3; }
+  50%       { transform: translateY(-14px) scale(1.4); opacity: 0.65; }
+}
+@keyframes heroBadgeFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-9px); }
+}
+@keyframes heroDotPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
+  50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0.12); }
+}
+
+/* --- Monitoring.jsx --- */
+@keyframes shimmer { 0%{opacity:0.6} 50%{opacity:1} 100%{opacity:0.6} }
+.pulse-dot { animation: shimmer 2s ease-in-out infinite; }
+.row-hover:hover { background: linear-gradient(90deg, transparent, rgba(16,185,129,0.03), transparent); }
+.stat-card-enter { animation: fadeSlideUp 0.5s cubic-bezier(0.4,0,0.2,1) both; }
+@keyframes fadeSlideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
+.badge-sehat { background: linear-gradient(135deg,#d1fae5,#a7f3d0); color: #065f46; }
+.badge-tindakan { background: linear-gradient(135deg,#fee2e2,#fecaca); color: #991b1b; }
+.badge-perawatan { background: linear-gradient(135deg,#fef3c7,#fde68a); color: #92400e; }
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* --- Pemupukan.jsx --- */
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes cardPop {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes pulseSoft {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+@keyframes zoneSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-main    { animation: fadeSlideUp 0.42s cubic-bezier(.22,1,.36,1) both; }
+.row-anim     { animation: rowIn 0.32s ease both; }
+.card-pop     { animation: cardPop 0.38s cubic-bezier(.22,1,.36,1) both; }
+.zone-slide   { animation: zoneSlide 0.4s cubic-bezier(.22,1,.36,1) both; }
+.tip-wrap:hover .tip-emoji { animation: pulseSoft 0.75s ease-in-out infinite; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.tab-btn { transition: all 0.22s cubic-bezier(.22,1,.36,1); }
+
+/* --- Perawatankebunsawit.jsx --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.15); }
+  50%       { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
+}
+.card-kegiatan { animation: fadeInUp 0.5s ease both; }
+.card-kegiatan:nth-child(1) { animation-delay: 0.05s; }
+.card-kegiatan:nth-child(2) { animation-delay: 0.12s; }
+.card-kegiatan:nth-child(3) { animation-delay: 0.19s; }
+.card-kegiatan:nth-child(4) { animation-delay: 0.26s; }
+.tip-item { animation: slideInLeft 0.45s ease both; }
+.tip-item:nth-child(1) { animation-delay: 0.05s; }
+.tip-item:nth-child(2) { animation-delay: 0.11s; }
+.tip-item:nth-child(3) { animation-delay: 0.17s; }
+.tip-item:nth-child(4) { animation-delay: 0.23s; }
+.tip-item:nth-child(5) { animation-delay: 0.29s; }
+.panduan-card { animation: fadeInUp 0.5s ease both; }
+.panduan-card:nth-child(1) { animation-delay: 0.04s; }
+.panduan-card:nth-child(2) { animation-delay: 0.10s; }
+.panduan-card:nth-child(3) { animation-delay: 0.16s; }
+.panduan-card:nth-child(4) { animation-delay: 0.22s; }
+.panduan-card:nth-child(5) { animation-delay: 0.28s; }
+.panduan-card:nth-child(6) { animation-delay: 0.34s; }
+.tabel-row { animation: fadeInUp 0.4s ease both; }
+/* ============================================================
+   MOBILE RESPONSIVE FIXES
+   ============================================================ */
+
+/* Smooth scroll globally */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal overflow on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Mobile: better touch targets for nav links */
+@media (max-width: 767px) {
+  /* Hero image – don't let it exceed container */
+  .hero-image-wrap {
+    overflow: hidden;
+  }
+
+  /* Stat cards – compact text on very small screens */
+  .stat-card-value {
+    font-size: 1.1rem;
+  }
+
+  /* All page headers: reduce vertical padding */
+  .page-header-section {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+
+  /* Sidebar category pills: scrollable row */
+  .category-sidebar {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .category-sidebar a {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+/* Smoother scrollbar for category tabs */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Touch-friendly buttons on mobile */
+@media (max-width: 767px) {
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Feature cards: full width on mobile */
+  .feature-card {
+    width: 100%;
+  }
+  
+  /* Chart SVG: prevent overflow on mobile */
+  svg {
+    max-width: 100%;
+  }
+}
+
+/* Modal: full screen on small mobile */
+@media (max-width: 400px) {
+  .modal-card {
+    border-radius: 1rem;
+    margin: 0.5rem;
+  }
+}

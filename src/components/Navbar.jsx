@@ -5,7 +5,7 @@ import logoSawit from "../assets/aisawit.png";
 import { auth, db } from "../firebase";
 import { signOut, updateProfile } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 
 export default function Navbar() {
   // BUG FIX Bug5: pakai shared auth state — hapus duplikat listener
@@ -54,13 +54,22 @@ export default function Navbar() {
     }
   }, [user]);
 
-  // BUG FIX Bug3+Bug5: muat foto dari Firestore hanya saat UID berubah.
-  // Path diperbaiki: riwayat/profil → profil/foto agar tidak
-  // bercampur dengan data analisis riwayat tanaman.
-  useEffect(() => {
-    if (!user) { setCustomPhoto(null); return; }
+  // FIX FLASH FOTO: Baca sessionStorage secara SINKRON sebelum browser menampilkan
+  // frame pertama. useLayoutEffect jalan setelah DOM diperbarui tapi SEBELUM
+  // browser paint — foto langsung tersedia di render pertama tanpa kedip.
+  useLayoutEffect(() => {
+    if (!user?.uid) {
+      setCustomPhoto(null);
+      return;
+    }
     const cached = sessionStorage.getItem("sawpi_photo_" + user.uid);
     if (cached) setCustomPhoto(cached);
+  }, [user?.uid]);
+
+  // Fetch Firestore async (setelah render) hanya saat UID berubah.
+  // Path: profil/foto agar tidak bercampur dengan data analisis riwayat tanaman.
+  useEffect(() => {
+    if (!user?.uid) return;
     getDoc(doc(db, "users", user.uid, "profil", "foto"))
       .then(snap => {
         if (!isMounted.current) return;
